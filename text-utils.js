@@ -53,7 +53,7 @@ class Text {
 		}
 		// remove unprotected lines
 		this.text = paragraphs.join('');
-		// les paragraphes délimitent les mots au même titre que les espaces
+		// Paragraphs are word-boundaries as much as spaces
 		if (paragraphs.length > 0) this.wordCount--;
 	}
 	removeDoubleSpaces(){

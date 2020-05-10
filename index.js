@@ -20,15 +20,15 @@ const tokenHeaderName = 'token';
 const chunkLength = 80;
 
 // --- Users & Tokens ---
-/* testing values:*/
+/* testing values:
 const maxWordsPerToken = 100;
 const oneDayInMilliseconds = 1000 * 60; // actually 1mn
-
-/* correct values:
+*/
+/* correct values: */
 const maxWordsPerToken = 80000;
 const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
 //                           1s     1mn  1h   1d
- */
+
 var users = {  };
 
 class User {
@@ -55,8 +55,21 @@ class User {
 	}
 }
 
+function badRequest(res, msg, origin){
+	console.log("badRequest: " + msg + " in index.js/" + origin + "()");
+	res.status(400).send("Error 400: Bad Request\n" + msg + "\nin index.js/" + origin + "()");
+}
+
 function newTokenHandler(req, res){
-	var param = JSON.parse(req.body);
+	var error = () => {
+		badRequest(res, "Invalid JSON in Request body", "newTokenHandler");
+	};
+	try {
+		var param = JSON.parse(req.body);
+	} catch (e){
+		error();
+		return;
+	}
 	if (typeof(param.email) === 'string'){
 		let tokenId = crypto.randomBytes(16).toString('hex');
 		if (users[tokenId] !== undefined){
@@ -64,35 +77,39 @@ function newTokenHandler(req, res){
 			return newTokenHandler(req, res);
 		} else {
 			users[tokenId] = new User(param.email, maxWordsPerToken);
-			console.log('new user:', tokenId, 'with email =', param.email)
+			console.log('New user:', tokenId, 'with email =', param.email)
 			res.send(tokenId);
 		}
-	} else {
-		res.status(400).send("Error 400: Bad Request<br>Invalid request body");
-	}
+	} else error();
 }
 
 function justifyHandler(req, res){
 	var toJustify = req.body;
 	if (toJustify === undefined){
-		res.status(400).send("Error 400: Bad Request<br>Invalid request body");
+		badRequest(res, "Invalid request body", "justifyHandler");
 	} else {
 		let tokenId = req.get(tokenHeaderName);
 		var user = users[tokenId];
 		if (user === undefined){
-			res.status(400).send("Error 400: Bad Request<br>Invalid token");
+			// The token wasn't found :/
+			badRequest(res, "Invalid token", "justifyHandler");
 		} else {
+			// User is authenticated
 			var text = new textUtils.Text(toJustify);
+			// Here the text gets prepared for the justification
+			// Also, words are counted there.
 			text.removeDoubleLines();
 			text.removeDoubleSpaces();
 			console.log("User ", user.email, "wants to use", text.wordCount, "words.");
 
 			if (user.canUseWords(text.wordCount)){
 				text.justify(chunkLength);
+				// user word-uses are increased:
 				user.useWords(text.wordCount);
 				res.send(text.text);
 				console.log("Accepted.");
 			} else {
+				// word-limit has been reached
 				res.status(402).send("Error 402: Payment Required");
 				console.log("Denied.");
 			}
