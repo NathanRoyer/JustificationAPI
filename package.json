@@ -4,9 +4,9 @@
   "description": "RESTful API for text justification",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test/test.sh"
   },
-  "author": "",
+  "author": "Nathan Royer",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
