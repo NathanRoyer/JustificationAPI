@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API test</title>
+</head>
+<body>
+	<textarea id="toJustify"></textarea>
+	<br>
+	<input type="button" onclick="send(toJustify.value, 'justify')" value="justify">
+	<input type="button" onclick="send(JSON.stringify({email:toJustify.value}), 'token')" value="token">
+	<script type="text/javascript">
+
+function send(text, destination){
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/api/" + destination);
+	xhr.addEventListener("load", (event) => {
+		toJustify.value = event.target.responseText;
+	});
+	xhr.setRequestHeader("Content-Type", "text/plain");
+	xhr.send(text);
+}
+
+	</script>
+</body>
+</html>
