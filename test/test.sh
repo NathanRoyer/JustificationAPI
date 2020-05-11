@@ -20,26 +20,26 @@ echo
 echo "---- Request #5 - no Content-Type header"
 curl -s -X POST -H "token: $TOKEN" --data-binary @test/input-to-justify.txt $HOST/justify
 echo
-# sleep 5s
-# echo "---- Request #6 after 5s"
-# cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# echo "---- Request #7"
-# cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# echo "---- Request #8"
-# cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# echo "---- Request #8"
-# cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# sleep 2m
-# echo "---- Request #9 after 2mn"
-# cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# echo "---- Request #10"
-# cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
-# echo "---- Request #11"
-# cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
-# echo
+sleep 5s
+echo "---- Request #6 after 5s"
+cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+echo "---- Request #7"
+cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+echo "---- Request #8"
+cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+echo "---- Request #8"
+cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+sleep 2m
+echo "---- Request #9 after 2mn"
+cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+echo "---- Request #10"
+cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
+echo "---- Request #11"
+cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
+echo
