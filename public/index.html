@@ -4,11 +4,11 @@
 	<title>API test</title>
 </head>
 <body>
-	<textarea id="toJustify"></textarea>
+	<textarea id="toJustify" placeholder="POST body"></textarea>
 	<br>
-	<input type="button" onclick="send(JSON.stringify({email:toJustify.value}), 'token')" value="token">
+	<input type="button" onclick="send(JSON.stringify({email:toJustify.value}), 'token')" value="Get a token">
 	<input type="button" onclick="token = toJustify.value" value="Use token in future requests">
-	<input type="button" onclick="send(toJustify.value, 'justify')" value="justify">
+	<input type="button" onclick="send(toJustify.value, 'justify')" value="Justify text">
 	<script type="text/javascript">
 var token = '';
 
