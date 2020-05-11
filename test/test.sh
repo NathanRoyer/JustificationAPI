@@ -1,4 +1,4 @@
-HOST=http://localhost:8080/api
+HOST=http://localhost:7000/api
 TOKEN=$(curl -s -X POST -H "Content-Type: text/plain" -d @test/input-to-justify.txt $HOST/token)
 echo "Invalid token submission:"
 echo "$TOKEN"
