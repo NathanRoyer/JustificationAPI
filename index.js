@@ -29,7 +29,7 @@ const maxWordsPerToken = 80000;
 const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
 //                           1s     1mn  1h   1d
 
-var users = {  };
+var users = { };
 
 class User {
 	constructor(email, availableWords){
@@ -121,4 +121,4 @@ app.post('/api/token', newTokenHandler);
 app.post('/api/justify', justifyHandler);
 app.use(express.static('public'));
 
-app.listen(port, () => console.log(`http://localhost:${ port }`));
+app.listen(port, () => console.log('listening on port', port));

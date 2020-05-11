@@ -10,12 +10,13 @@ class Text {
 	justify(chunkLength){
 		var i = 0, spaceCounter = 0;
 		var lastSpace = 0;
-		var line = this.text.substr(i, chunkLength);
+		var line = this.text.substr(0, chunkLength);
 		var lines = [];
 		while (i < this.text.length){
 			var endingChar = this.text.charAt(i + chunkLength - spaceCounter);
 			var crPosition = line.indexOf(carriageReturn);
 			if (crPosition !== -1){
+				// the line has a carriage return
 
 				// console.log('pushed line:', line.substr(0, crPosition));
 				lines.push(line.substr(0, crPosition));
@@ -26,6 +27,7 @@ class Text {
 				// this is triggered before any modification to them.
 
 			} else if (correctEndings.indexOf(endingChar) !== -1){
+				// the line is justified
 
 				// console.log('pushed line:', line);
 				lines.push(line);
@@ -36,10 +38,17 @@ class Text {
 				spaceCounter = 0;
 
 			} else {
+				// the line is to be justified
+
+				// locate a space to double
 				lastSpace = line.indexOf(space, lastSpace);
+				// double the space
 				line = line.substr(0, lastSpace) + space + line.substr(lastSpace, chunkLength - lastSpace - 1);
 				spaceCounter++;
+				// the next space locating
+				// will have 2 spaces to skip:
 				lastSpace += 2;
+
 			}
 		}
 		this.text = lines.join(carriageReturn);
@@ -54,6 +63,7 @@ class Text {
 		// remove unprotected lines
 		this.text = paragraphs.join('');
 		// Paragraphs are word-boundaries as much as spaces
+		// but for n paragraphs we have n-1 words
 		if (paragraphs.length > 0) this.wordCount--;
 	}
 	removeDoubleSpaces(){
