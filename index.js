@@ -98,9 +98,10 @@ function justifyHandler(req, res){
 			var text = new textUtils.Text(toJustify);
 			// Here the text gets prepared for the justification
 			// Also, words are counted there.
+			text.removeCarriageReturns();
 			text.removeDoubleLines();
 			text.removeDoubleSpaces();
-			console.log("User ", user.email, "wants to use", text.wordCount, "words.");
+			console.log("User", user.email, "wants to use", text.wordCount, "words.");
 
 			if (user.canUseWords(text.wordCount)){
 				text.justify(chunkLength);

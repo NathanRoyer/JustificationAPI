@@ -6,9 +6,11 @@
 <body>
 	<textarea id="toJustify"></textarea>
 	<br>
-	<input type="button" onclick="send(toJustify.value, 'justify')" value="justify - wont work without disabling token checks">
 	<input type="button" onclick="send(JSON.stringify({email:toJustify.value}), 'token')" value="token">
+	<input type="button" onclick="token = toJustify.value" value="Use token in future requests">
+	<input type="button" onclick="send(toJustify.value, 'justify')" value="justify">
 	<script type="text/javascript">
+var token = '';
 
 function send(text, destination){
 	var xhr = new XMLHttpRequest();
@@ -17,6 +19,7 @@ function send(text, destination){
 		toJustify.value = event.target.responseText;
 	});
 	xhr.setRequestHeader("Content-Type", "text/plain");
+	xhr.setRequestHeader("token", token);
 	xhr.send(text);
 }
 

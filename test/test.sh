@@ -33,8 +33,8 @@ echo
 echo "---- Request #8"
 cat test/big-input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
 echo
-sleep 2m
-echo "---- Request #9 after 2mn"
+sleep 10s
+echo "---- Request #9 after 10s"
 cat test/input-to-justify.txt | curl -s -X POST -H "Content-Type: text/plain" -H "token: $TOKEN" --data-binary @- $HOST/justify
 echo
 echo "---- Request #10"
