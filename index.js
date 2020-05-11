@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 	} else next();
 });
 // --- HTTP ---
-const port = 7000;
+const port = 7001;
 const tokenHeaderName = 'token';
 
 // --- Justification ---
