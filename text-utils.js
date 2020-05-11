@@ -36,11 +36,11 @@ class Text {
 	insertSpaces(line, chunkLength){
 		var parts = line.split(space);
 		for (var p = 1; p < parts.length; p += 2){
-			parts.splice(p, 0, ' ');
+			parts.splice(p, 0, space);
 		}
 		var p = 1;
 		while (parts.join('').length < chunkLength){
-			parts[p++] += ' ';
+			parts[p++] += space;
 			if (++p >= parts.length) p = 1;
 		}
 		return parts.join('');
