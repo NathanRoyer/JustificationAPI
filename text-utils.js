@@ -8,43 +8,49 @@ class Text {
 		this.wordCount = 0;
 	}
 	justify(chunkLength){
-		var i = 0, spaceCounter = 0;
+		var i = 0, insertedSpaces = 0;
 		var lastSpace = 0;
 		var line = this.text.substr(0, chunkLength);
 		var lines = [];
 		while (i < this.text.length){
-			var endingChar = this.text.charAt(i + chunkLength - spaceCounter);
+			var endingChar = this.text.charAt(i + chunkLength - insertedSpaces);
+			var lastIsSpace = line.charAt(chunkLength - 1) == space;
+			// console.log(line, lastIsSpace, endingChar);
 			var crPosition = line.indexOf(carriageReturn);
 			if (crPosition !== -1){
 				// the line has a carriage return
 
-				// console.log('pushed line:', line.substr(0, crPosition));
+				// console.log('pushed line2:', line.substr(0, crPosition));
 				lines.push(line.substr(0, crPosition));
 				i += crPosition + 1;
 				line = this.text.substr(i, chunkLength);
 
-				// reset of lastSpace and spaceCounter not needed because
+				// reset of lastSpace and insertedSpaces not needed because
 				// this is triggered before any modification to them.
 
-			} else if (correctEndings.indexOf(endingChar) !== -1){
+			} else if ((correctEndings.indexOf(endingChar) !== -1) && !lastIsSpace){
 				// the line is justified
 
-				// console.log('pushed line:', line);
+				// console.log('pushed line1:', line);
 				lines.push(line);
-				i += chunkLength - spaceCounter + 1;
+				i += chunkLength - insertedSpaces + 1;
 				line = this.text.substr(i, chunkLength);
 
 				lastSpace = 0;
-				spaceCounter = 0;
+				insertedSpaces = 0;
 
 			} else {
 				// the line is to be justified
 
 				// locate a space to double
+				if (lastIsSpace) line = line.substr(0, line.length - 1);
+				if (line.lastIndexOf(space) <= lastSpace) lastSpace = 0;
+				// console.log('justifying @', lastSpace, line);
 				lastSpace = line.indexOf(space, lastSpace);
+				// console.log('line', line);
 				// double the space
-				line = line.substr(0, lastSpace) + space + line.substr(lastSpace, chunkLength - lastSpace - 1);
-				spaceCounter++;
+				line = (line.substr(0, lastSpace) + space + line.substr(lastSpace)).substr(0, chunkLength);
+				insertedSpaces++;
 				// the next space locating
 				// will have 2 spaces to skip:
 				lastSpace += 2;
